@@ -197,7 +197,7 @@ Or with Lua code like this:
 ```lua
 local session = require "resty.session".new()
 -- After new you cannot specify storage as a string, you need to give actual implementation
-session.storage = require "resty.sesstion.storage.shm"
+session.storage = require "resty.session.storage.shm"
 -- or
 local session = require "resty.session".new({ storage = "shm" })
 ```
@@ -474,7 +474,7 @@ To configure session to use your adapter, you can do so with Nginx configuration
 set $session_encoder base64;
 ```
 
-## Pluggable Session Identifier Ganerators
+## Pluggable Session Identifier Generators
 
 With version 2.12 we started to support pluggable session identifier generators in `lua-resty-session`.
 Right now we support only one type of generator, and that is:
@@ -722,7 +722,7 @@ local uid = session.data.uid
 
 #### boolean session.cookie.persistent
 
-`session.cookie.persistent` is by default `false`. This means that cookies are not persisted between browser sessions (i.e. they are deleted when the browser is deleted). You can enable persistent sessions if you want to by setting this to `true`. This can be configured with Nginx `set $session_cookie_persistent on;`.
+`session.cookie.persistent` is by default `false`. This means that cookies are not persisted between browser sessions (i.e. they are deleted when the browser is closed). You can enable persistent sessions if you want to by setting this to `true`. This can be configured with Nginx `set $session_cookie_persistent on;`.
 
 #### number session.cookie.renew
 
