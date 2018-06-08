@@ -1,16 +1,16 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "lua-resty-session"
-version = "2.0-1"
+version = "2.1-1"
 -- LuaDist source
 source = {
-  tag = "2.0-1",
+  tag = "2.1-1",
   url = "git://github.com/LuaDist-testing/lua-resty-session.git"
 }
 -- Original source
 -- source = {
 --     url = "git://github.com/bungle/lua-resty-session.git",
---     branch = "v2.0"
+--     branch = "v2.1"
 -- }
 description = {
     summary = "Session library for OpenResty implementing Secure Cookie Protocol",
@@ -31,6 +31,8 @@ build = {
         ["resty.session.storage.cookie"]    = "lib/resty/session/storage/cookie.lua",
         ["resty.session.storage.memcache"]  = "lib/resty/session/storage/memcache.lua",
         ["resty.session.storage.memcached"] = "lib/resty/session/storage/memcached.lua",
+        ["resty.session.ciphers.aes"]       = "lib/resty/session/ciphers/aes.lua",
+        ["resty.session.ciphers.none"]      = "lib/resty/session/ciphers/none.lua",
         ["resty.session.encoders.hex"]      = "lib/resty/session/encoders/hex.lua",
         ["resty.session.encoders.base16"]   = "lib/resty/session/encoders/base16.lua",
         ["resty.session.encoders.base64"]   = "lib/resty/session/encoders/base64.lua",
