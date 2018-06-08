@@ -485,7 +485,7 @@ If you want to write your own session identifier generator, you need to implemen
 
 * `string function(config)`
 
-(the config is actually a session instance =
+(the `config` is actually a `session` instance)
 
 You have to place your generator inside `resty.session.identifiers` for auto-loader to work.
 
@@ -601,9 +601,10 @@ validates the supplied session cookie. If validation is successful, the user sup
 with `opts` argument, but be aware that many of these will only have effect if the session is a fresh session
 (i.e. not loaded from user supplied cookie). This function does also manage session cookie renewing configured
 with `$session_cookie_renew`. E.g. it will send a new cookie with a new expiration time if the following is
-met `session.expires - now < session.cookie.renew`. The second `boolean` return argument will be `true` if the user
-client send a valid cookie (meaning that session was already started on some earlier request), and `false` if the
-new session was created (either because user client didn't send a cookie or that the cookie was not a valid one).
+met `session.expires - now < session.cookie.renew or session.expires > now + session.cookie.lifetime`. The second
+`boolean` return argument will be `true` if the user client send a valid cookie (meaning that session was already
+started on some earlier request), and `false` if the new session was created (either because user client didn't send
+a cookie or that the cookie was not a valid one). On error this will return nil and error message.
 
 ```lua
 local session = require "resty.session".start()
@@ -776,6 +777,13 @@ want to turn this off, this can be configured with Nginx `set $session_cookie_ht
 delimited. By default it is a pipe character, `|`. It is up to storage adapter to decide if this configuration
 parameter is used.
 
+#### number session.cookie.chunks
+
+`session.cookie.chunks` should be used as a read only property to determine how many separate cookies was
+used for a session. Usually this is `1`, but if you are using a `cookie` storage backend and store a lot
+of data in session, then the cookie is divided to `n` chunks where each stores data containing 4.000 bytes
+(the last one 4000 or less). This was implemented in version 2.15.
+
 #### boolean session.check.ssi
 
 `session.check.ssi` is additional check to validate that the request was made with the same SSL
@@ -908,12 +916,19 @@ set $session_cipher_rounds     1;
 
 The changes of every release of this module is recorded in [Changes.md](https://github.com/bungle/lua-resty-session/blob/master/Changes.md) file.
 
+## See Also
+
+* [lua-resty-route](https://github.com/bungle/lua-resty-route) — Routing library
+* [lua-resty-reqargs](https://github.com/bungle/lua-resty-reqargs) — Request arguments parser
+* [lua-resty-template](https://github.com/bungle/lua-resty-template) — Templating engine
+* [lua-resty-validation](https://github.com/bungle/lua-resty-validation) — Validation and filtering library
+
 ## License
 
 `lua-resty-session` uses two clause BSD license.
 
 ```
-Copyright (c) 2014 – 2016 Aapo Talvensaari
+Copyright (c) 2014 – 2017 Aapo Talvensaari
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
