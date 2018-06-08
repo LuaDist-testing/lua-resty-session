@@ -1,16 +1,16 @@
 -- This file was automatically generated for the LuaDist project.
 
 package = "lua-resty-session"
-version = "1.4-1"
+version = "1.5-1"
 -- LuaDist source
 source = {
-  tag = "1.4-1",
+  tag = "1.5-1",
   url = "git://github.com/LuaDist-testing/lua-resty-session.git"
 }
 -- Original source
 -- source = {
 --     url = "git://github.com/bungle/lua-resty-session.git",
---     branch = "v1.4"
+--     branch = "v1.5"
 -- }
 description = {
     summary = "Session library for OpenResty implementing Secure Cookie Protocol",
